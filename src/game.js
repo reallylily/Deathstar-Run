@@ -1,8 +1,8 @@
-const Tie = require("./tie");
-const Bullet = require("./lasers/bullet");
-const GreenLaser = require('./lasers/green_laser')
-const Ship = require("./ship");
-const Background = require('./background')
+const Tie = require("./ships/tie");
+const Bullet = require("./weapons/bullet");
+const GreenLaser = require('./weapons/green_laser')
+const Ship = require("./ships/ship");
+const Background = require('./fx/background')
 const Util = require("./util");
 
 class Game {

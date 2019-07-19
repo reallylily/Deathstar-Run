@@ -1,6 +1,6 @@
-const MovingObject = require("./moving_object");
-const Bullet = require("./lasers/bullet");
-const Util = require("./util");
+const MovingObject = require("../moving_object");
+const Bullet = require("../weapons/bullet");
+const Util = require("../util");
 // const ShipSprite = require('./sprites/spritesheets/xwing.png')
 
 const CONTROLS = {

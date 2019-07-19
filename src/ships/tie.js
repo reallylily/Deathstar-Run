@@ -1,14 +1,14 @@
-const Util = require("./util");
-const MovingObject = require("./moving_object");
+const Util = require("../util");
+const MovingObject = require("../moving_object");
 const Ship = require("./ship");
-const Bullet = require("./lasers/bullet");
-const GreenLaser = require('./lasers/green_laser')
+const Bullet = require("../weapons/bullet");
+const GreenLaser = require('../weapons/green_laser')
 
 const DEFAULTS = {
   COLOR: "#505050",
   RADIUS: 20,
   SPEED: 5,
-  HEALTH: 4,
+  HEALTH: 3,
 };
 
 const COOLDOWN = 10;
