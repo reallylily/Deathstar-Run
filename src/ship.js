@@ -16,6 +16,9 @@ const CONTROLS = {
   D: 68,
 }
 
+const COOLDOWN = 17;
+const LONGCOOLDOWN = 20;
+
 function randomColor() {
   const hexDigits = "0123456789ABCDEF";
 
@@ -47,6 +50,8 @@ class Ship extends MovingObject {
     }
     this.fireBullet = this.fireBullet.bind(this)
     this.update = this.update.bind(this)
+    this.overheated = 0
+    this.burst = false
     this.trackMovements()
   }
 
@@ -133,8 +138,8 @@ class Ship extends MovingObject {
     if (this.keyDown.LEFT) this.pos[0] -= (this.keyDown.SHIFT ? this.focusMovement : this.movement);
     if (this.keyDown.RIGHT) this.pos[0] += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
     // if (this.keyDown.SPACE) this.x += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
-    if (this.keyDown.SPACE) (this.keyDown.SHIFT ? null : this.fireBullet() );
-
+    if (this.keyDown.SPACE) (this.overheated <= 0 ? this.fireBullet() : null );
+    this.overheated--
   }
 
   draw(ctx) {
@@ -160,24 +165,30 @@ class Ship extends MovingObject {
     //   Bullet.SPEED
     // );
 
-    // const bulletVel = [
-    //   0,-10
-    // ];
+    const bulletVel = [0,-14]
+
 
     const right = new Bullet({
-      pos: [this.pos[0] + 23, this.pos[1] - 10],
-      vel: [0,-14],
+      pos: [this.pos[0] + 23, this.pos[1] - 13],
+      vel: bulletVel,
       color: this.color,
       game: this.game
     });
     const left = new Bullet({
-      pos: [this.pos[0] - 23, this.pos[1] - 10],
-      vel: [0,-14],
+      pos: [this.pos[0] - 22, this.pos[1] - 13],
+      vel: bulletVel,
       color: this.color,
       game: this.game
     });
     this.game.add(right);
     this.game.add(left);
+    this.overheated = COOLDOWN
+    if (this.burst) {
+      this.overheated += LONGCOOLDOWN;
+      this.burst = false
+    } else {
+      this.burst = true
+    }
   }
 
 

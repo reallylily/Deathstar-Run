@@ -17,11 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function component() {
-  console.log("hello I'm here")
+  // console.log("hello I'm here")
     
-  const element = document.createElement('div');
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  return element;
+  // const element = document.createElement('div');
+  // element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  // return element;
 }
       
-document.body.appendChild(component());
+// document.body.appendChild(component());
