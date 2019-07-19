@@ -35,15 +35,10 @@ const Util = {
   },
 
   bounce(vel) {
-    let new_vel = [-vel[1], vel[0]];
+    let new_vel = [-vel[0], vel[1]];
+    if (new_vel[1] < 0) new_vel[1] = -new_vel[1];
+    // console.log(new_vel)
     return new_vel
-    // if (coord < 0) {
-    //   return 0
-    // } else if (coord > max) {
-    //   return max
-    // } else {
-    //   return coord;
-    // }
   },
 
   trap(coord, max) {

@@ -160,29 +160,25 @@ class Game {
   }
   
   bounce(pos, vel) {
-    console.log(pos)
-    if (pos[1] > Game.DIM_Y) return vel
+    if (pos[1] >= Game.DIM_Y ) return vel
     return Util.bounce(vel)
-    // return [
-      //   Util.bounce(vel[0], Game.DIM_X), Util.bounce(vel[1], Game.DIM_Y)
-      // ];
-    }
+  }
   
-    step(delta) {
-      this.moveObjects(delta);
-      this.checkCollisions();
-      // console.log(this)
-      // console.log(this.ships[0].update())
-      this.ships[0].update()
-    }
-}
+  step(delta) {
+    this.moveObjects(delta);
+    this.checkCollisions();
+    this.ships[0].update()
+  }
+
+} // class
 
 Game.BG_COLOR = "#000000";
 Game.DIM_X = 550;
 Game.DIM_Y = 680;
 // Game.FPS = 240;
 Game.FPS = 32;
-Game.NUM_ASTEROIDS = 1;
-// Game.NUM_ASTEROIDS = 10;
+
+// Game.NUM_ASTEROIDS = 1;
+Game.NUM_ASTEROIDS = 10;
 
 module.exports = Game;

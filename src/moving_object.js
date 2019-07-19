@@ -9,6 +9,7 @@ class MovingObject {
     this.game = options.game;
     this.isWrappable = true;
     this.bounces = false;
+    this.health = 1
   }
 
   collideWith(otherObject) {

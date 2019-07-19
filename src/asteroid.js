@@ -6,7 +6,8 @@ const Bullet = require("./bullet");
 const DEFAULTS = {
   COLOR: "#505050",
   RADIUS: 20,
-  SPEED: 4
+  SPEED: 5,
+  HEALTH: 4,
 };
 
 class Asteroid extends MovingObject {
@@ -15,8 +16,10 @@ class Asteroid extends MovingObject {
     options.pos = options.pos || options.game.randomPosition();
     options.radius = DEFAULTS.RADIUS;
     options.vel = options.vel || Util.randomVec(DEFAULTS.SPEED);
+    // options.health = DEFAULTS.HEALTH;
     super(options);
-    this.bounces = true
+    this.bounces = true;
+    this.health = DEFAULTS.HEALTH;
   }
 
   draw(ctx) {
@@ -39,7 +42,10 @@ class Asteroid extends MovingObject {
       otherObject.relocate();
       return true;
     } else if (otherObject instanceof Bullet) {
-      this.remove();
+      this.health--
+      if (this.health <= 0) {
+        this.remove();
+      }
       otherObject.remove();
       return true;
     }
