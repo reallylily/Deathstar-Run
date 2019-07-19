@@ -1,7 +1,8 @@
 const Util = require("./util");
 const MovingObject = require("./moving_object");
 const Ship = require("./ship");
-const Bullet = require("./bullet");
+const Bullet = require("./lasers/bullet");
+const GreenLaser = require('./lasers/green_laser')
 
 const DEFAULTS = {
   COLOR: "#505050",
@@ -10,7 +11,10 @@ const DEFAULTS = {
   HEALTH: 4,
 };
 
-class Asteroid extends MovingObject {
+const COOLDOWN = 10;
+const LONGCOOLDOWN = 60;
+
+class Tie extends MovingObject {
   constructor(options = {}) {
     options.color = DEFAULTS.COLOR;
     options.pos = options.pos || options.game.randomPosition();
@@ -20,23 +24,19 @@ class Asteroid extends MovingObject {
     super(options);
     this.bounces = true;
     this.health = DEFAULTS.HEALTH;
+    // this.color = '#00FF00'
+    this.overheated = Math.floor(Math.random() * 100)
+    this.burst = false
   }
-
+  
   draw(ctx) {
     ctx.fillStyle = this.color;
-
     ctx.beginPath();
-    // ctx.arc(
-    //   this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
-    // );
-    // ctx.fill();
     let shipImage = new Image();
     shipImage.src = "../src/sprites/spritesheets/tiefighter.png";
     ctx.drawImage(shipImage,this.pos[0]-24 ,this.pos[1]-24 , 48, 48);
-  // imageObj.src = 'https://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
-
   }
-
+  
   collideWith(otherObject) {
     if (otherObject instanceof Ship) {
       otherObject.relocate();
@@ -52,6 +52,41 @@ class Asteroid extends MovingObject {
 
     return false;
   }
+
+  fireBullet() {
+    const norm = Util.norm(this.vel);
+
+    const bulletVel = [0,20]
+
+
+    const right = new GreenLaser({
+      pos: [this.pos[0] + 2, this.pos[1] + 9],
+      vel: bulletVel,
+      color: this.color,
+      game: this.game
+    });
+    const left = new GreenLaser({
+      pos: [this.pos[0] - 6, this.pos[1] + 9],
+      vel: bulletVel,
+      color: this.color,
+      game: this.game
+    });
+    this.game.add(right);
+    this.game.add(left);
+    this.overheated = COOLDOWN
+    if (this.burst) {
+      this.overheated += LONGCOOLDOWN;
+      this.burst = false
+    } else {
+      this.burst = true
+    }
+  }
+
+  update() {
+    if (this.overheated <= 0) (this.fireBullet() );
+    this.overheated--
+  }
+
 }
 
-module.exports = Asteroid;
+module.exports = Tie;

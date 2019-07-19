@@ -1,12 +1,13 @@
-const Asteroid = require("./asteroid");
-const Bullet = require("./bullet");
+const Tie = require("./tie");
+const Bullet = require("./lasers/bullet");
+const GreenLaser = require('./lasers/green_laser')
 const Ship = require("./ship");
 const Background = require('./background')
 const Util = require("./util");
 
 class Game {
   constructor() {
-    this.asteroids = [];
+    this.tie_fighters = [];
     this.bullets = [];
     this.ships = [];
     this.background = [];
@@ -19,9 +20,11 @@ class Game {
   }
 
   add(object) {
-    if (object instanceof Asteroid) {
-      this.asteroids.push(object);
+    if (object instanceof Tie) {
+      this.tie_fighters.push(object);
     } else if (object instanceof Bullet) {
+      this.bullets.push(object);
+    } else if (object instanceof GreenLaser) {
       this.bullets.push(object);
     } else if (object instanceof Ship) {
       this.ships.push(object);    
@@ -34,13 +37,13 @@ class Game {
 
   addAsteroids() {
     for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
-      this.add(new Asteroid({ game: this }));
+      this.add(new Tie({ game: this }));
     }
   }
 
   addAsteroid() {
     // for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
-      this.add(new Asteroid({ game: this }));
+      this.add(new Tie({ game: this }));
     // }
   }
 
@@ -66,7 +69,7 @@ class Game {
   }
 
   allObjects() {
-    return [].concat(this.ships, this.asteroids, this.bullets);
+    return [].concat(this.ships, this.tie_fighters, this.bullets);
   }
 
   checkCollisions() {
@@ -123,11 +126,13 @@ class Game {
   remove(object) {
     if (object instanceof Bullet) {
       this.bullets.splice(this.bullets.indexOf(object), 1);
-    } else if (object instanceof Asteroid) {
+    } else if (object instanceof GreenLaser) {
+      this.bullets.splice(this.bullets.indexOf(object), 1);
+    } else if (object instanceof Tie) {
 
-    if (this.asteroids.indexOf(object) % 2 === 0) this.addAsteroid()
+    if (this.tie_fighters.indexOf(object) % 2 === 0) this.addAsteroid()
       
-      this.asteroids.splice(this.asteroids.indexOf(object), 1);
+      this.tie_fighters.splice(this.tie_fighters.indexOf(object), 1);
     } else if (object instanceof Ship) {
       this.ships.splice(this.ships.indexOf(object), 1);
     } else {
@@ -136,24 +141,12 @@ class Game {
   }
   
   wrap(pos) {
-    // return pos
-    // return [
-    //   Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
-    // ];
     return [
       pos[0], Util.wrap(pos[1], Game.DIM_Y)
     ];
   }
 
-  // bounce(pos, vel) {
-  //   // return pos
-  //   return [
-  //     Util.bounce(pos[0], vel, Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
-  //   ];
-  // }
-
   trap(pos) {
-    // return pos
     return [
       Util.trap(pos[0], Game.DIM_X), Util.trap(pos[1], Game.DIM_Y)
     ];
@@ -168,6 +161,7 @@ class Game {
     this.moveObjects(delta);
     this.checkCollisions();
     this.ships[0].update()
+    this.tie_fighters.forEach(fighter => fighter.update())
   }
 
 } // class

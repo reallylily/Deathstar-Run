@@ -1,4 +1,4 @@
-const MovingObject = require("./moving_object");
+const MovingObject = require("../moving_object");
 
 class Bullet extends MovingObject {
   constructor(options) {
@@ -11,7 +11,7 @@ class Bullet extends MovingObject {
 
   draw(ctx) {
     ctx.fillStyle = this.color;
-    ctx.drawImage(this.laser,this.pos[0]-1,this.pos[1]-6, 3, 30);
+    ctx.drawImage(this.laser,this.pos[0]-1,this.pos[1]-6, 4, 15);
   }
 
 } // class

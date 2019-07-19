@@ -57,9 +57,9 @@ class MovingObject {
         // this.pos = this.game.trap(this.pos);
         if (this.vel === this.game.bounce(this.pos, this.vel)) {
           this.pos = this.game.wrap(this.pos)
+        } else {
+          this.vel = this.game.bounce(this.pos, this.vel)
         }
-        this.vel = this.game.bounce(this.pos, this.vel)
-
       } else if (this.isWrappable) {
         this.pos = this.game.wrap(this.pos);
       } else {

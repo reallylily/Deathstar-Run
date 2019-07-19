@@ -1,5 +1,5 @@
 const MovingObject = require("./moving_object");
-const Bullet = require("./bullet");
+const Bullet = require("./lasers/bullet");
 const Util = require("./util");
 // const ShipSprite = require('./sprites/spritesheets/xwing.png')
 
@@ -16,8 +16,8 @@ const CONTROLS = {
   D: 68,
 }
 
-const COOLDOWN = 17;
-const LONGCOOLDOWN = 20;
+const COOLDOWN = 8;
+const LONGCOOLDOWN = 16;
 
 function randomColor() {
   const hexDigits = "0123456789ABCDEF";
@@ -50,6 +50,8 @@ class Ship extends MovingObject {
       RIGHT: false,
       SHIFT: false
     }
+    this.shipImage = new Image();
+    this.shipImage.src = "../src/sprites/spritesheets/xwing.png";
     this.fireBullet = this.fireBullet.bind(this)
     this.update = this.update.bind(this)
     this.overheated = 0
@@ -146,17 +148,10 @@ class Ship extends MovingObject {
 
   draw(ctx) {
     ctx.fillStyle = this.color;
-
     ctx.beginPath();
-    // ctx.arc(
-    //   this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
-    // );
-    // ctx.fill();
     let shipImage = new Image();
     shipImage.src = "../src/sprites/spritesheets/xwing.png";
-    ctx.drawImage(shipImage,this.pos[0]-30 ,this.pos[1]-30 , 60, 60);
-  // imageObj.src = 'https://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
-
+    ctx.drawImage(this.shipImage,this.pos[0]-30 ,this.pos[1]-30 , 60, 60);
   }
 
   fireBullet() {
@@ -167,17 +162,17 @@ class Ship extends MovingObject {
     //   Bullet.SPEED
     // );
 
-    const bulletVel = [0,-14]
+    const bulletVel = [0,-20]
 
 
     const right = new Bullet({
-      pos: [this.pos[0] + 23, this.pos[1] - 13],
+      pos: [this.pos[0] + 14, this.pos[1] - 28],
       vel: bulletVel,
       color: this.color,
       game: this.game
     });
     const left = new Bullet({
-      pos: [this.pos[0] - 22, this.pos[1] - 13],
+      pos: [this.pos[0] - 13, this.pos[1] - 28],
       vel: bulletVel,
       color: this.color,
       game: this.game
