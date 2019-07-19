@@ -34,16 +34,16 @@ const Util = {
     }
   },
 
-  bounce(coord, max) {
-    // let new_vel = [-vel[1], vel[0]];
-    // return new_vel
-    if (coord < 0) {
-      return 0
-    } else if (coord > max) {
-      return max
-    } else {
-      return coord;
-    }
+  bounce(vel) {
+    let new_vel = [-vel[1], vel[0]];
+    return new_vel
+    // if (coord < 0) {
+    //   return 0
+    // } else if (coord > max) {
+    //   return max
+    // } else {
+    //   return coord;
+    // }
   },
 
   trap(coord, max) {

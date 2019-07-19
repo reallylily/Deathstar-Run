@@ -8,6 +8,7 @@ class MovingObject {
     this.color = options.color;
     this.game = options.game;
     this.isWrappable = true;
+    this.bounces = false;
   }
 
   collideWith(otherObject) {
@@ -51,8 +52,15 @@ class MovingObject {
     if (this.game.isOutOfBounds(this.pos)) {
       if (this.isTrappable) {
         this.pos = this.game.trap(this.pos);
+      } else if (this.bounces) {
+        // this.pos = this.game.trap(this.pos);
+        if (this.vel === this.game.bounce(this.pos, this.vel)) {
+          this.pos = this.game.wrap(this.pos)
+        }
+        this.vel = this.game.bounce(this.pos, this.vel)
+
       } else if (this.isWrappable) {
-        this.pos = this.game.wrap(this.pos, this.vel);
+        this.pos = this.game.wrap(this.pos);
       } else {
         this.remove();
       }

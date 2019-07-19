@@ -137,10 +137,20 @@ class Game {
   
   wrap(pos) {
     // return pos
+    // return [
+    //   Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
+    // ];
     return [
-      Util.bounce(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
+      pos[0], Util.wrap(pos[1], Game.DIM_Y)
     ];
   }
+
+  // bounce(pos, vel) {
+  //   // return pos
+  //   return [
+  //     Util.bounce(pos[0], vel, Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
+  //   ];
+  // }
 
   trap(pos) {
     // return pos
@@ -149,13 +159,14 @@ class Game {
     ];
   }
   
-  // bounce(vel) {
-  //   // return vel
-  //   return Util.bounce(vel)
-  //   // return [
-  //     //   Util.bounce(vel[0], Game.DIM_X), Util.bounce(vel[1], Game.DIM_Y)
-  //     // ];
-  //   }
+  bounce(pos, vel) {
+    console.log(pos)
+    if (pos[1] > Game.DIM_Y) return vel
+    return Util.bounce(vel)
+    // return [
+      //   Util.bounce(vel[0], Game.DIM_X), Util.bounce(vel[1], Game.DIM_Y)
+      // ];
+    }
   
     step(delta) {
       this.moveObjects(delta);
@@ -171,7 +182,7 @@ Game.DIM_X = 550;
 Game.DIM_Y = 680;
 // Game.FPS = 240;
 Game.FPS = 32;
-// Game.NUM_ASTEROIDS = 1;
-Game.NUM_ASTEROIDS = 10;
+Game.NUM_ASTEROIDS = 1;
+// Game.NUM_ASTEROIDS = 10;
 
 module.exports = Game;

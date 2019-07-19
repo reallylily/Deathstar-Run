@@ -16,6 +16,7 @@ class Asteroid extends MovingObject {
     options.radius = DEFAULTS.RADIUS;
     options.vel = options.vel || Util.randomVec(DEFAULTS.SPEED);
     super(options);
+    this.bounces = true
   }
 
   draw(ctx) {
