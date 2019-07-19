@@ -38,7 +38,9 @@ class Ship extends MovingObject {
     options.vel = options.vel || [0, 0];
     options.color = 'red'
     super(options);
-    // this.isWrappable = false;
+    this.isTrappable = true;
+
+    this.isWrappable = false;
     this.movement = 4;
     this.focusMovement = 1;
     this.keyDown = {

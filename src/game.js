@@ -138,17 +138,24 @@ class Game {
   wrap(pos) {
     // return pos
     return [
-      Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
+      Util.bounce(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
+    ];
+  }
+
+  trap(pos) {
+    // return pos
+    return [
+      Util.trap(pos[0], Game.DIM_X), Util.trap(pos[1], Game.DIM_Y)
     ];
   }
   
-  bounce(vel) {
-    // return vel
-    return Util.bounce(vel)
-    // return [
-      //   Util.bounce(vel[0], Game.DIM_X), Util.bounce(vel[1], Game.DIM_Y)
-      // ];
-    }
+  // bounce(vel) {
+  //   // return vel
+  //   return Util.bounce(vel)
+  //   // return [
+  //     //   Util.bounce(vel[0], Game.DIM_X), Util.bounce(vel[1], Game.DIM_Y)
+  //     // ];
+  //   }
   
     step(delta) {
       this.moveObjects(delta);

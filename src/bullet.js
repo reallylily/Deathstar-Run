@@ -11,8 +11,6 @@ class Bullet extends MovingObject {
 
   draw(ctx) {
     ctx.fillStyle = this.color;
-
-    // ctx.beginPath();
     ctx.drawImage(this.laser,this.pos[0]-1,this.pos[1]-6, 3, 30);
   }
 

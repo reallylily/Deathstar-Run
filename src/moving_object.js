@@ -49,8 +49,10 @@ class MovingObject {
     // }
 
     if (this.game.isOutOfBounds(this.pos)) {
-      if (this.isWrappable) {
-        this.pos = this.game.wrap(this.pos);
+      if (this.isTrappable) {
+        this.pos = this.game.trap(this.pos);
+      } else if (this.isWrappable) {
+        this.pos = this.game.wrap(this.pos, this.vel);
       } else {
         this.remove();
       }
