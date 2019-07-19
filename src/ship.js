@@ -34,11 +34,10 @@ class Ship extends MovingObject {
     options.radius = Ship.RADIUS;
     options.vel = options.vel || [0, 0];
     options.color = 'red'
-    // options.color = options.color || randomColor();
     super(options);
     // this.isWrappable = false;
     this.movement = 4;
-    this.focusMovement = 2;
+    this.focusMovement = 1;
     this.keyDown = {
       UP: false,
       DOWN: false,
@@ -167,13 +166,13 @@ class Ship extends MovingObject {
 
     const right = new Bullet({
       pos: [this.pos[0] + 23, this.pos[1] - 10],
-      vel: [0,-10],
+      vel: [0,-14],
       color: this.color,
       game: this.game
     });
     const left = new Bullet({
       pos: [this.pos[0] - 23, this.pos[1] - 10],
-      vel: [0,-10],
+      vel: [0,-14],
       color: this.color,
       game: this.game
     });

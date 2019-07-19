@@ -1,6 +1,7 @@
 const Asteroid = require("./asteroid");
 const Bullet = require("./bullet");
 const Ship = require("./ship");
+const Background = require('./background')
 const Util = require("./util");
 
 class Game {
@@ -8,8 +9,13 @@ class Game {
     this.asteroids = [];
     this.bullets = [];
     this.ships = [];
+    this.background = [];
 
     this.addAsteroids();
+    this.addBackground();
+
+    
+
   }
 
   add(object) {
@@ -18,7 +24,9 @@ class Game {
     } else if (object instanceof Bullet) {
       this.bullets.push(object);
     } else if (object instanceof Ship) {
-      this.ships.push(object);
+      this.ships.push(object);    
+    } else if (object instanceof Background) {
+        this.background.push(object);
     } else {
       throw new Error("unknown type of object");
     }
@@ -30,6 +38,12 @@ class Game {
     }
   }
 
+  addAsteroid() {
+    // for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
+      this.add(new Asteroid({ game: this }));
+    // }
+  }
+
   addShip() {
     const ship = new Ship({
       pos: this.startingPosition(),
@@ -38,9 +52,17 @@ class Game {
     });
 
     this.add(ship);
-    // Track Ship Movements
-    // ship.trackMovements()
     return ship;
+  }
+
+  addBackground() {
+
+    const background = new Background({
+      game: this,
+    });
+
+    this.add(background);
+    return background;
   }
 
   allObjects() {
@@ -67,9 +89,12 @@ class Game {
     ctx.fillStyle = Game.BG_COLOR;
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
-    this.allObjects().forEach((object) => {
+    this.background.concat(this.allObjects()).forEach((object) => {
       object.draw(ctx);
-    });
+    });    
+    // this.allObjects().concat(this.background).forEach((object) => {
+    //   object.draw(ctx);
+    // });
   }
 
   isOutOfBounds(pos) {
@@ -86,7 +111,8 @@ class Game {
   randomPosition() {
     return [
       Game.DIM_X * Math.random(),
-      Game.DIM_Y * Math.random()
+      0
+      // Game.DIM_Y * Math.random()
     ];
   }
 
@@ -98,6 +124,9 @@ class Game {
     if (object instanceof Bullet) {
       this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof Asteroid) {
+
+    if (this.asteroids.indexOf(object) % 2 === 0) this.addAsteroid()
+      
       this.asteroids.splice(this.asteroids.indexOf(object), 1);
     } else if (object instanceof Ship) {
       this.ships.splice(this.ships.indexOf(object), 1);
