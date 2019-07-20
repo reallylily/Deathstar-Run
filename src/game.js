@@ -1,27 +1,30 @@
-const Tie = require("./ships/tie");
 const Bullet = require("./weapons/bullet");
 const GreenLaser = require('./weapons/green_laser')
+
 const Ship = require("./ships/ship");
+const Tie = require("./ships/tie");
+
+const SmallExplosion = require('./fx/small_explosion')
 const Background = require('./fx/background')
+
 const Util = require("./util");
 
 class Game {
   constructor() {
-    this.tie_fighters = [];
+    this.enemies = [];
     this.bullets = [];
     this.ships = [];
     this.background = [];
+    this.explosions = [];
 
     this.addAsteroids();
     this.addBackground();
-
-    
 
   }
 
   add(object) {
     if (object instanceof Tie) {
-      this.tie_fighters.push(object);
+      this.enemies.push(object);
     } else if (object instanceof Bullet) {
       this.bullets.push(object);
     } else if (object instanceof GreenLaser) {
@@ -30,6 +33,8 @@ class Game {
       this.ships.push(object);    
     } else if (object instanceof Background) {
         this.background.push(object);
+    } else if (object instanceof SmallExplosion) {
+        this.explosions.push(object);
     } else {
       throw new Error("unknown type of object");
     }
@@ -69,7 +74,7 @@ class Game {
   }
 
   allObjects() {
-    return [].concat(this.ships, this.tie_fighters, this.bullets);
+    return [].concat(this.ships, this.enemies, this.bullets);
   }
 
   checkCollisions() {
@@ -91,8 +96,8 @@ class Game {
     ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     ctx.fillStyle = Game.BG_COLOR;
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-
-    this.background.concat(this.allObjects()).forEach((object) => {
+    console.log(this.background.concat(this.allObjects()).concat(this.explosions))
+    this.background.concat(this.allObjects()).concat(this.explosions).forEach((object) => {
       object.draw(ctx);
     });    
     // this.allObjects().concat(this.background).forEach((object) => {
@@ -130,11 +135,13 @@ class Game {
       this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof Tie) {
 
-    if (this.tie_fighters.indexOf(object) % 2 === 0) this.addAsteroid()
+      if (this.enemies.indexOf(object) % 2 === 0) this.addAsteroid()
       
-      this.tie_fighters.splice(this.tie_fighters.indexOf(object), 1);
+      this.enemies.splice(this.enemies.indexOf(object), 1);
     } else if (object instanceof Ship) {
       this.ships.splice(this.ships.indexOf(object), 1);
+    } else if (object instanceof SmallExplosion) {
+      this.explosions.splice(this.explosions.indexOf(object), 1);
     } else {
       throw new Error("unknown type of object");
     }
@@ -161,7 +168,9 @@ class Game {
     this.moveObjects(delta);
     this.checkCollisions();
     this.ships[0].update()
-    this.tie_fighters.forEach(fighter => fighter.update())
+    this.enemies.forEach(fighter => fighter.update())
+    this.explosions.forEach(boom => boom.update())
+
   }
 
 } // class

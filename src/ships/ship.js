@@ -63,7 +63,7 @@ class Ship extends MovingObject {
   trackMovements() {
     // if(true) { 
       document.addEventListener('keydown', (e) => {
-        console.log(e.keyCode)
+        // console.log(e.keyCode)
         switch (e.keyCode) {
           case CONTROLS.UP: 
             this.keyDown.UP = true;

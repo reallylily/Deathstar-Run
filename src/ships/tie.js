@@ -3,6 +3,7 @@ const MovingObject = require("../moving_object");
 const Ship = require("./ship");
 const Bullet = require("../weapons/bullet");
 const GreenLaser = require('../weapons/green_laser')
+const SmallExplosion = require('../fx/small_explosion')
 
 const DEFAULTS = {
   COLOR: "#505050",
@@ -42,6 +43,13 @@ class Tie extends MovingObject {
       otherObject.relocate();
       return true;
     } else if (otherObject instanceof Bullet) {
+      const boom = new SmallExplosion({
+        pos: [otherObject.pos[0], otherObject.pos[1]],
+        vel: [0,0],
+        color: 'yellow',
+        game: this.game,
+      });
+      this.game.add(boom);
       this.health--
       if (this.health <= 0) {
         this.remove();
@@ -54,10 +62,7 @@ class Tie extends MovingObject {
   }
 
   fireBullet() {
-    const norm = Util.norm(this.vel);
-
     const bulletVel = [0,20]
-
 
     const right = new GreenLaser({
       pos: [this.pos[0] + 2, this.pos[1] + 9],
