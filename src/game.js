@@ -135,7 +135,7 @@ class Game {
       this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof Tie) {
 
-      if (this.enemies.indexOf(object) % 2 === 0) this.addAsteroid()
+      if (this.enemies.indexOf(object) === 0) this.addAsteroids()
       
       this.enemies.splice(this.enemies.indexOf(object), 1);
     } else if (object instanceof Ship) {
@@ -182,6 +182,7 @@ Game.DIM_Y = 680;
 Game.FPS = 32;
 
 // Game.NUM_ASTEROIDS = 1;
-Game.NUM_ASTEROIDS = 10;
+Game.NUM_ASTEROIDS = 3;
+// Game.NUM_ASTEROIDS = 10;
 
 module.exports = Game;

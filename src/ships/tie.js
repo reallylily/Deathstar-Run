@@ -40,7 +40,7 @@ class Tie extends MovingObject {
   
   collideWith(otherObject) {
     if (otherObject instanceof Ship) {
-      otherObject.relocate();
+      // otherObject.relocate();
       return true;
     } else if (otherObject instanceof Bullet) {
       const boom = new SmallExplosion({

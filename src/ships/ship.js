@@ -1,5 +1,8 @@
 const MovingObject = require("../moving_object");
 const Bullet = require("../weapons/bullet");
+const GreenLaser = require("../weapons/green_laser");
+const SmallExplosion = require('../fx/small_explosion')
+
 const Util = require("../util");
 // const ShipSprite = require('./sprites/spritesheets/xwing.png')
 
@@ -188,6 +191,26 @@ class Ship extends MovingObject {
     }
   }
 
+  collideWith(otherObject) {
+
+    if (otherObject instanceof GreenLaser) {
+      const boom = new SmallExplosion({
+        pos: [otherObject.pos[0], otherObject.pos[1]],
+        vel: [0,0],
+        color: 'yellow',
+        game: this.game,
+      });
+      this.game.add(boom);
+      // this.health--
+      // if (this.health <= 0) {
+      //   this.remove();
+      // }
+      otherObject.remove();
+      return true;
+    }
+
+    return false;
+  }
 
   relocate() {
     this.pos = this.game.startingPosition();
