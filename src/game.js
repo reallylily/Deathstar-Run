@@ -1,10 +1,17 @@
 const Bullet = require("./weapons/bullet");
 const GreenLaser = require('./weapons/green_laser')
+const PhotonTorpedo = require('./weapons/photon_torpedo')
+
 
 const Ship = require("./ships/ship");
 const Tie = require("./ships/tie");
 
 const SmallExplosion = require('./fx/small_explosion')
+const BigExplosion = require('./fx/big_explosion')
+const VerticalExplosion = require('./fx/vertical_explosion')
+const VortexExplosion = require('./fx/vortex_explosion')
+
+
 const Background = require('./fx/background')
 
 const Util = require("./util");
@@ -17,7 +24,7 @@ class Game {
     this.background = [];
     this.explosions = [];
 
-    this.addAsteroids();
+    this.addEnemies();
     this.addBackground();
 
   }
@@ -29,24 +36,32 @@ class Game {
       this.bullets.push(object);
     } else if (object instanceof GreenLaser) {
       this.bullets.push(object);
+    } else if (object instanceof PhotonTorpedo) {
+      this.bullets.push(object);
     } else if (object instanceof Ship) {
       this.ships.push(object);    
     } else if (object instanceof Background) {
-        this.background.push(object);
+      this.background.push(object);
     } else if (object instanceof SmallExplosion) {
         this.explosions.push(object);
+    } else if (object instanceof BigExplosion) {
+      this.explosions.push(object);
+    } else if (object instanceof VerticalExplosion) {
+      this.explosions.push(object);
+    } else if (object instanceof VortexExplosion) {
+      this.explosions.unshift(object);
     } else {
       throw new Error("unknown type of object");
     }
   }
 
-  addAsteroids() {
+  addEnemies() {
     for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
       this.add(new Tie({ game: this }));
     }
   }
 
-  addAsteroid() {
+  addEnemy() {
     // for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
       this.add(new Tie({ game: this }));
     // }
@@ -96,7 +111,9 @@ class Game {
     ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     ctx.fillStyle = Game.BG_COLOR;
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-    console.log(this.background.concat(this.allObjects()).concat(this.explosions))
+
+    // Log the objects being rendered
+    // console.log(this.background.concat(this.allObjects()).concat(this.explosions))
     this.background.concat(this.allObjects()).concat(this.explosions).forEach((object) => {
       object.draw(ctx);
     });    
@@ -133,14 +150,22 @@ class Game {
       this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof GreenLaser) {
       this.bullets.splice(this.bullets.indexOf(object), 1);
+    } else if (object instanceof PhotonTorpedo) {
+      this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof Tie) {
 
-      if (this.enemies.indexOf(object) === 0) this.addAsteroids()
+      if (this.enemies.indexOf(object) === 0) this.addEnemies()
       
       this.enemies.splice(this.enemies.indexOf(object), 1);
     } else if (object instanceof Ship) {
       this.ships.splice(this.ships.indexOf(object), 1);
     } else if (object instanceof SmallExplosion) {
+      this.explosions.splice(this.explosions.indexOf(object), 1);
+    } else if (object instanceof BigExplosion) {
+      this.explosions.splice(this.explosions.indexOf(object), 1);
+    } else if (object instanceof VerticalExplosion) {
+      this.explosions.splice(this.explosions.indexOf(object), 1);
+    } else if (object instanceof VortexExplosion) {
       this.explosions.splice(this.explosions.indexOf(object), 1);
     } else {
       throw new Error("unknown type of object");
@@ -170,6 +195,7 @@ class Game {
     this.ships[0].update()
     this.enemies.forEach(fighter => fighter.update())
     this.explosions.forEach(boom => boom.update())
+    this.bullets.forEach(boom => { if (boom instanceof PhotonTorpedo) boom.update() })
 
   }
 

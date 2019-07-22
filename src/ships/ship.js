@@ -1,6 +1,7 @@
 const MovingObject = require("../moving_object");
 const Bullet = require("../weapons/bullet");
 const GreenLaser = require("../weapons/green_laser");
+const PhotonTorpedo = require('../weapons/photon_torpedo')
 const SmallExplosion = require('../fx/small_explosion')
 
 const Util = require("../util");
@@ -17,23 +18,14 @@ const CONTROLS = {
   A: 65,
   S: 83,
   D: 68,
+  M: 77,
 }
 
 const COOLDOWN = 8;
 const LONGCOOLDOWN = 16;
 
-function randomColor() {
-  const hexDigits = "0123456789ABCDEF";
-
-  let color = "#";
-  for (let i = 0; i < 3; i++) {
-    color += hexDigits[Math.floor((Math.random() * 16))];
-  }
-
-  return color;
-}
-
-
+const SPECIALCOOLDOWN = 110;
+// const SPECIALCOOLDOWN = 100;
 
 class Ship extends MovingObject {
   constructor(options) {
@@ -51,13 +43,18 @@ class Ship extends MovingObject {
       DOWN: false,
       LEFT: false,
       RIGHT: false,
-      SHIFT: false
+      SHIFT: false,
+      SPACE: false,
+      SPECIAL: false,
     }
     this.shipImage = new Image();
     this.shipImage.src = "../src/sprites/spritesheets/xwing.png";
-    this.fireBullet = this.fireBullet.bind(this)
-    this.update = this.update.bind(this)
+    // this.fireBullet = this.fireBullet.bind(this);
+    // this.fireTorpedo = this.fireTorpedo.bind(this);
+    // this.update = this.update.bind(this);
     this.overheated = 0
+    this.special_cooldown = 0
+
     this.burst = false
     this.trackMovements()
   }
@@ -66,7 +63,7 @@ class Ship extends MovingObject {
   trackMovements() {
     // if(true) { 
       document.addEventListener('keydown', (e) => {
-        // console.log(e.keyCode)
+        console.log(e.keyCode)
         switch (e.keyCode) {
           case CONTROLS.UP: 
             this.keyDown.UP = true;
@@ -96,8 +93,16 @@ class Ship extends MovingObject {
 
           case CONTROLS.SHIFT:
             this.keyDown.SHIFT = true;
+            break;
+
           case CONTROLS.SPACE:
             this.keyDown.SPACE = true;
+            break;
+
+          case CONTROLS.M:
+            this.keyDown.SPECIAL = true;
+            break;
+
         }
       });
 
@@ -132,21 +137,33 @@ class Ship extends MovingObject {
 
           case CONTROLS.SHIFT:
             this.keyDown.SHIFT = false;
+            break;
+
           case CONTROLS.SPACE:
             this.keyDown.SPACE = false;
+            break;
+          case CONTROLS.M:
+            this.keyDown.SPECIAL = false;
+            break;
+
         }
       })
     // }
   }
 
   update() {
+    // console.log(this.keyDown.SPECIAL)
     if (this.keyDown.UP) this.pos[1] -= (this.keyDown.SHIFT ? this.focusMovement : this.movement);
     if (this.keyDown.DOWN) this.pos[1] += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
     if (this.keyDown.LEFT) this.pos[0] -= (this.keyDown.SHIFT ? this.focusMovement : this.movement);
+
     if (this.keyDown.RIGHT) this.pos[0] += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
-    // if (this.keyDown.SPACE) this.x += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
+
+    if (this.keyDown.SPECIAL) (this.special_cooldown <= 0 ? this.fireTorpedo() : null );
+
     if (this.keyDown.SPACE) (this.overheated <= 0 ? this.fireBullet() : null );
     this.overheated--
+    this.special_cooldown--
   }
 
   draw(ctx) {
@@ -157,14 +174,24 @@ class Ship extends MovingObject {
     ctx.drawImage(this.shipImage,this.pos[0]-30 ,this.pos[1]-30 , 60, 60);
   }
 
+  fireTorpedo() {
+    console.log('torpedo')
+    const vel = [0,-10]
+
+    const torpedo = new PhotonTorpedo({
+      pos: [this.pos[0], this.pos[1] - 28],
+      vel: vel,
+      color: this.color,
+      game: this.game
+    });
+
+    this.game.add(torpedo);
+    this.special_cooldown = SPECIALCOOLDOWN
+  }
+
+
   fireBullet() {
     const norm = Util.norm(this.vel);
-
-    // const relVel = Util.scale(
-    //   Util.dir(this.vel),
-    //   Bullet.SPEED
-    // );
-
     const bulletVel = [0,-20]
 
 

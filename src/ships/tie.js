@@ -2,14 +2,18 @@ const Util = require("../util");
 const MovingObject = require("../moving_object");
 const Ship = require("./ship");
 const Bullet = require("../weapons/bullet");
+const PhotonTorpedo = require('../weapons/photon_torpedo')
+
 const GreenLaser = require('../weapons/green_laser')
 const SmallExplosion = require('../fx/small_explosion')
+const BigExplosion = require('../fx/big_explosion')
+const VerticalExplosion = require('../fx/vertical_explosion')
 
 const DEFAULTS = {
   COLOR: "#505050",
   RADIUS: 20,
   SPEED: 5,
-  HEALTH: 3,
+  HEALTH: 15,
 };
 
 const COOLDOWN = 10;
@@ -53,8 +57,30 @@ class Tie extends MovingObject {
       this.health--
       if (this.health <= 0) {
         this.remove();
+        const boom = new VerticalExplosion({
+          pos: [otherObject.pos[0], otherObject.pos[1]],
+          vel: this.vel,
+          color: 'yellow',
+          game: this.game,
+        });
+        this.game.add(boom);
+      } 
+    } else if (otherObject instanceof PhotonTorpedo) {
+
+      if (otherObject.radius === 110) {
+        const boom = new BigExplosion({
+          pos: [this.pos[0], this.pos[1]],
+          vel: this.vel,
+          color: 'yellow',
+          game: this.game,
+        });
+        this.game.add(boom);
+        this.remove();
+        // otherObject.remove();
+      } else {
+        otherObject.radius = 110
       }
-      otherObject.remove();
+
       return true;
     }
 
