@@ -56,21 +56,18 @@ class Game {
   }
 
   addEnemies() {
-    for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
+    for (let i = 0; i < Game.NUM_ENEMIES; i++) {
       this.add(new Tie({ game: this }));
     }
   }
 
   addEnemy() {
-    // for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
       this.add(new Tie({ game: this }));
-    // }
   }
 
   addShip() {
     const ship = new Ship({
       pos: this.startingPosition(),
-      // pos: this.randomPosition(),
       game: this
     });
 
@@ -117,9 +114,6 @@ class Game {
     this.background.concat(this.allObjects()).concat(this.explosions).forEach((object) => {
       object.draw(ctx);
     });    
-    // this.allObjects().concat(this.background).forEach((object) => {
-    //   object.draw(ctx);
-    // });
   }
 
   isOutOfBounds(pos) {
@@ -143,6 +137,10 @@ class Game {
 
   startingPosition() {
     return [275,580]
+  }
+
+  topMidPosition() {
+    return [275,0]
   }
 
   remove(object) {
@@ -207,8 +205,8 @@ Game.DIM_Y = 680;
 // Game.FPS = 240;
 Game.FPS = 32;
 
-// Game.NUM_ASTEROIDS = 1;
-Game.NUM_ASTEROIDS = 3;
-// Game.NUM_ASTEROIDS = 10;
+// Game.NUM_ENEMIES = 1;
+Game.NUM_ENEMIES = 3;
+// Game.NUM_ENEMIES = 10;
 
 module.exports = Game;
