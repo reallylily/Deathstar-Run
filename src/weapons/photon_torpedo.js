@@ -16,7 +16,6 @@ class PhotonTorpedo extends MovingObject {
   }
 
   draw(ctx) {
-      // console.log('drawing torpedo')
       // ctx.fillStyle = this.color;
 
       // ctx.beginPath();

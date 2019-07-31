@@ -5,6 +5,7 @@ const PhotonTorpedo = require('./weapons/photon_torpedo')
 
 const Ship = require("./ships/ship");
 const Tie = require("./ships/tie");
+const ExhaustPort = require("./features/exhaust_port");
 
 const SmallExplosion = require('./fx/small_explosion')
 const BigExplosion = require('./fx/big_explosion')
@@ -16,6 +17,8 @@ const Background = require('./fx/background')
 
 const Util = require("./util");
 
+const KILLS_TO_WIN = 100
+
 class Game {
   constructor() {
     this.enemies = [];
@@ -23,16 +26,24 @@ class Game {
     this.ships = [];
     this.background = [];
     this.explosions = [];
+    this.exhaust_port = [];
 
     this.addEnemies();
     this.addBackground();
+
+    this.kill_count = 0
+
+    // this.game_won = true;
+    this.game_won = false;
 
   }
 
   add(object) {
     if (object instanceof Tie) {
       this.enemies.push(object);
-    } else if (object instanceof Bullet) {
+    } else if (object instanceof ExhaustPort) {
+      this.exhaust_port.push(object);    }
+    else if (object instanceof Bullet) {
       this.bullets.push(object);
     } else if (object instanceof GreenLaser) {
       this.bullets.push(object);
@@ -65,6 +76,10 @@ class Game {
       this.add(new Tie({ game: this }));
   }
 
+  addExhaustPort() {
+    this.add(new ExhaustPort({ game: this, pos: this.topMidPosition() }));
+  }
+
   addShip() {
     const ship = new Ship({
       pos: this.startingPosition(),
@@ -86,7 +101,7 @@ class Game {
   }
 
   allObjects() {
-    return [].concat(this.ships, this.enemies, this.bullets);
+    return [].concat(this.exhaust_port, this.ships, this.enemies, this.bullets);
   }
 
   checkCollisions() {
@@ -153,8 +168,12 @@ class Game {
     } else if (object instanceof Tie) {
 
       if (this.enemies.indexOf(object) === 0) this.addEnemies()
+      if (this.enemies.indexOf(object) === 1) this.addEnemies()
       
       this.enemies.splice(this.enemies.indexOf(object), 1);
+      this.kill_count += 1;
+    } else if (object instanceof ExhaustPort) {
+      this.exhaust_port.splice(this.exhaust_port.indexOf(object), 1);
     } else if (object instanceof Ship) {
       this.ships.splice(this.ships.indexOf(object), 1);
     } else if (object instanceof SmallExplosion) {
@@ -194,8 +213,12 @@ class Game {
     this.enemies.forEach(fighter => fighter.update())
     this.explosions.forEach(boom => boom.update())
     this.bullets.forEach(boom => { if (boom instanceof PhotonTorpedo) boom.update() })
+    
+
+    if (this.kill_count >= KILLS_TO_WIN && this.exhaust_port.length === 0) this.addExhaustPort()
 
   }
+
 
 } // class
 

@@ -10,12 +10,25 @@
     </style>
     <Link rel="stylesheet" href="../style/layout.css"/>
   </head>
-  <body data-rsssl=1>
-    <div class="canvas-container">
+  <aside class='flex-column-center'>
+    <header>Instructions</header>
+    <div id='blurb'>Don't fall. Don't get crushed.<br/>May the force be with you!</div>
+    <ul id='instruction-list'>
+        <li><span class='key'><i class="fas fa-arrow-left"></i></span> / <span class='key'><i class="fas fa-arrow-right"></i></span> to move</li>
+        <li><span class='key'>Space</span> to fire laser</li>
+        <li><span class='key'>M</span> to fire photon torpedo</li>
+        <!-- <li>Press into walls while in the air to slide</li> -->
+        <!-- <li id='wallslide-header'>Wall Sliding</li>
+        <li><span class='key'><i class="fas fa-arrow-left"></i></span> / <span class='key'><i class="fas fa-arrow-right"></i></span> + <span class='key'>Space</span> to wall jump</li>
+        <li><span class='key'>Space</span> to drop</li> -->
+    </ul>
+</aside>
+  <body data-rsssl=1 class="bod">
+    <div class="canvas-container" id="canvas-container">
 
-      <canvas class="canvas"></canvas>
+      <canvas class="canvas" id='canvas'></canvas>
       <script src="main.js"></script>
-      
+
     </div>
   </body>
 </html>
