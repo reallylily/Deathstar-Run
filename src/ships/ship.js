@@ -36,7 +36,7 @@ class Ship extends MovingObject {
     this.isTrappable = true;
 
     this.isWrappable = false;
-    this.movement = 4;
+    this.movement = 1;
     this.focusMovement = 1;
     this.keyDown = {
       UP: false,
@@ -151,19 +151,26 @@ class Ship extends MovingObject {
     // }
   }
 
-  update() {
+  update(delta) {
     // console.log(this.keyDown.SPECIAL)
-    if (this.keyDown.UP) this.pos[1] -= (this.keyDown.SHIFT ? this.focusMovement : this.movement);
-    if (this.keyDown.DOWN) this.pos[1] += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
-    if (this.keyDown.LEFT) this.pos[0] -= (this.keyDown.SHIFT ? this.focusMovement : this.movement);
-
-    if (this.keyDown.RIGHT) this.pos[0] += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
+    var moveDelta = delta * 0.6
+    var overheatDelta = delta * 0.15
+    var specialCooldownDelta = delta * 0.15
+    // console.log(delta * 0.15)
+    if (this.keyDown.UP) this.pos[1] -= (this.keyDown.SHIFT ? this.focusMovement : moveDelta);
+    if (this.keyDown.DOWN) this.pos[1] += (this.keyDown.SHIFT ? this.focusMovement : moveDelta);
+    if (this.keyDown.LEFT) this.pos[0] -= (this.keyDown.SHIFT ? this.focusMovement : moveDelta);
+    if (this.keyDown.RIGHT) this.pos[0] += (this.keyDown.SHIFT ? this.focusMovement : moveDelta);
+    // if (this.keyDown.UP) this.pos[1] -= (this.keyDown.SHIFT ? this.focusMovement : this.movement);
+    // if (this.keyDown.DOWN) this.pos[1] += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
+    // if (this.keyDown.LEFT) this.pos[0] -= (this.keyDown.SHIFT ? this.focusMovement : this.movement);
+    // if (this.keyDown.RIGHT) this.pos[0] += (this.keyDown.SHIFT ? this.focusMovement : this.movement);
 
     if (this.keyDown.SPECIAL) (this.special_cooldown <= 0 ? this.fireTorpedo() : null );
-
     if (this.keyDown.SPACE) (this.overheated <= 0 ? this.fireBullet() : null );
-    this.overheated--
-    this.special_cooldown--
+
+    this.overheated -= overheatDelta
+    this.special_cooldown -= specialCooldownDelta
   }
 
   draw(ctx) {

@@ -1,13 +1,26 @@
+@import 'reset.css';
+@import 'instructions.css';
 
-
-.canvas-container {
+/* .canvas-container {
     display: flex;
     /* flex-direction: row; */
     justify-content: center;
-}
+} */
 
 .bod {
     display: flex;
     /* flex-direction: row; */
     justify-content: center;
 }
+
+p { 
+    font-family: '8BITWONDERNominal'; 
+    font-weight: normal; 
+    font-style: normal; 
+ }
+
+ .justify-contents-center {
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: center;
+ }

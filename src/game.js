@@ -209,10 +209,10 @@ class Game {
   step(delta) {
     this.moveObjects(delta);
     this.checkCollisions();
-    this.ships[0].update()
-    this.enemies.forEach(fighter => fighter.update())
-    this.explosions.forEach(boom => boom.update())
-    this.bullets.forEach(boom => { if (boom instanceof PhotonTorpedo) boom.update() })
+    this.ships[0].update(delta)
+    this.enemies.forEach(fighter => fighter.update(delta))
+    this.explosions.forEach(boom => boom.update(delta))
+    this.bullets.forEach(bullet => { if (bullet instanceof PhotonTorpedo) bullet.update(delta) })
     
 
     if (this.kill_count >= KILLS_TO_WIN && this.exhaust_port.length === 0) this.addExhaustPort()

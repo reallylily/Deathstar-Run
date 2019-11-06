@@ -9,26 +9,55 @@
       }
     </style>
     <Link rel="stylesheet" href="../style/layout.css"/>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./dist/main.js"></script>
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Squada+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
   </head>
-  <aside class='flex-column-center'>
-    <header>Instructions</header>
-    <div id='blurb'>Don't fall. Don't get crushed.<br/>May the force be with you!</div>
-    <ul id='instruction-list'>
-        <li><span class='key'><i class="fas fa-arrow-left"></i></span> / <span class='key'><i class="fas fa-arrow-right"></i></span> to move</li>
-        <li><span class='key'>Space</span> to fire laser</li>
-        <li><span class='key'>M</span> to fire photon torpedo</li>
-        <!-- <li>Press into walls while in the air to slide</li> -->
-        <!-- <li id='wallslide-header'>Wall Sliding</li>
-        <li><span class='key'><i class="fas fa-arrow-left"></i></span> / <span class='key'><i class="fas fa-arrow-right"></i></span> + <span class='key'>Space</span> to wall jump</li>
-        <li><span class='key'>Space</span> to drop</li> -->
-    </ul>
-</aside>
-  <body data-rsssl=1 class="bod">
-    <div class="canvas-container" id="canvas-container">
+  <body data-rsssl=1 class='flex-column-center'>
+    <header id='game-title'>Deathstar Run</header>
+      <div class="justify-contents-center">
 
-      <canvas class="canvas" id='canvas'></canvas>
-      <script src="main.js"></script>
-
-    </div>
-  </body>
-</html>
+        <aside class='flex-column-center'>
+          <header>Instructions</header>
+          <ul id='instruction-list'>
+            <li>
+              <span class='key'>W</span>
+              <span class='key'>A</span></i>
+              <span class='key'>S</span></i>
+              <span class='key'>D</span></i>
+            </span> to move
+          </li>
+          <li><span class='key'>Space</span> to fire laser</li>
+          <li><span class='key'>M</span> to fire photon torpedo</li>
+          </ul>
+          <div id='blurb'>May the force be with you!</div>
+        </aside>
+        <div class="canvas-container" id="canvas-container">
+          
+          <canvas class="canvas" id='canvas'></canvas>
+          <script src="main.js"></script>
+          
+        </div>
+        <aside class='flex-column-center'>
+            <header>Instructions</header>
+            <ul id='instruction-list'>
+              <li>
+                <span class='key'>W</span>
+                <span class='key'>A</span></i>
+                <span class='key'>S</span></i>
+                <span class='key'>D</span></i>
+              </span> to move
+            </li>
+            <li><span class='key'>Space</span> to fire laser</li>
+            <li><span class='key'>M</span> to fire photon torpedo</li>
+            </ul>
+            <div id='blurb'>May the force be with you!</div>
+          </aside>
+      </div>
+    </body>
+    </html>

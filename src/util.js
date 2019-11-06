@@ -42,7 +42,6 @@ const Util = {
   },
 
   trap(coord, max) {
-    // if (coord < 0) {
     if (coord < 0) {
       return 0
     } else if (coord > max) {

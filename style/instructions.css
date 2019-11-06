@@ -1,0 +1,258 @@
+@font-face {
+    font-family: 'Chonkly';
+    src: url('../fonts/Chonkly.otf') format('opentype');
+}
+
+body {
+    background: #747171;
+    color: white;
+    overflow-x: hidden;
+}
+
+p { 
+    font-family: '8BITWONDERNominal'; 
+    font-weight: normal; 
+    font-style: normal; 
+ }
+
+#game-title {
+    font-family: '8BITWONDERNominal', 'Permanent Marker', sans-serif;
+    font-size: 3.25rem;
+    padding: 20px;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 auto;
+}
+
+#canvas-container {
+    position: relative;
+    background: #94746e;
+    width: 630px;
+    height: 765px;
+    border: 2px solid #516c5a;
+    pointer-events: none;
+    user-select: none;
+    text-shadow: 3px 3px #505050;
+    margin: auto 0;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* #canvas-border {
+    padding: 3px;
+    background: linear-gradient(to top, #6e0707, #491818);
+    border: 2px solid #832424
+} */
+
+#ui-display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4rem;
+    width: 100%;
+    font-family: '8BITWONDERNominal', 'Squada One', sans-serif;
+    font-size: 2rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+}
+
+#audio-controls i {
+    pointer-events: all;
+    cursor: pointer;
+    padding-right: .5rem;
+}
+
+#audio-controls i:hover {
+    pointer-events: all;
+    cursor: pointer;
+    color: #ffe77e;
+}
+
+#audio-controls i:active {
+    transform: translateY(2px);
+}
+
+#audio-controls i.muted {
+    color: rgb(114, 114, 114);
+}
+
+.pulse {
+    animation: text-pulse 1.5s ease;
+    animation-iteration-count: infinite;
+    -webkit-animation: text-pulse 1.5s ease;
+    -webkit-animation-iteration-count: infinite;
+}
+
+#start-prompt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    font-family: '8BITWONDERNominal', 'Squada One', sans-serif;
+    font-size: 2.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes text-pulse {
+    0% {
+        font-size: 2.25rem;
+    }
+    50% {
+        font-size: 2.35rem;
+    }
+    100% {
+        font-size: 2.25rem;
+    }
+}
+
+@-webkit-keyframes text-pulse {
+    0% {
+        font-size: 2.25rem;
+    }
+    50% {
+        font-size: 2.35rem;
+    }
+    100% {
+        font-size: 2.25rem;
+    }
+}
+
+#end-prompt {
+    position: absolute;
+    top: 0;
+    lefT: 0;
+    height: 100%;
+    width: 100%;
+    font-family: '8BITWONDERNominal', 'Squada One', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+#end-text {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    animation: text-flash .5s ease;
+    animation-iteration-count: infinite;
+    -webkit-animation: text-flash .5s ease;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes text-flash {
+    0% {
+        color: white;
+    }
+    50% {
+        color: rgb(255, 55, 55);
+    }
+    100% {
+        color: white;
+    }
+}
+
+@-webkit-keyframes text-flash {
+    0% {
+        color: white;
+    }
+    50% {
+        color: rgb(255, 55, 55);
+    }
+    100% {
+        color: white;
+    }
+}
+
+#end-summary {
+    padding: 1.5rem;
+    width: 80%;
+}
+
+.summary-list-item {
+    font-size: 1.75rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#restart-prompt {
+    margin-top: 1rem;
+    font-size: 2.25rem;
+    text-align: center;
+}
+
+.flex-column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+aside {
+    font-family: 'Squada One', sans-serif;
+    padding-top: 50px;
+    flex: 1 1 auto;
+    width: 300px;
+}
+
+aside header {
+    width: 100%;
+    font-weight: 600;
+    font-size: 3rem;
+    line-height: 3rem;
+    padding: 12px;
+    text-align: center;
+}
+
+#blurb {
+    font-size: 2rem;
+    font-family: 'Permanent Marker';
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#instruction-list {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1.5rem;
+}
+
+#instruction-list li {
+    margin-bottom: 1rem;
+}
+
+.key {
+    color: #303030;
+    background-color: #e5e5e5;
+    border-radius: 10%;
+    box-shadow: 3px 3px #4a4a4a;
+    padding: 3px 8px;
+    vertical-align: middle;
+    margin-right: 3px;
+    margin-left: 2px;
+}

@@ -31,8 +31,11 @@ class VerticalExplosion extends MovingObject {
 
     }
 
-    update() {
+    update(delta) {
         this.health--
+
+        // var healthDelta = delta * 0.15
+        // this.health -= healthDelta
         if (this.health % 2 === 0) this.sx += this.sWidth;
         if (this.health % 20 === 0) {
             this.sy += this.sHeight;

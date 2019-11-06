@@ -113,9 +113,10 @@ class Tie extends MovingObject {
     }
   }
 
-  update() {
+  update(delta) {
+    var overheatDelta = delta * 0.15
     if (this.overheated <= 0) (this.fireBullet() );
-    this.overheated--
+    this.overheated -= overheatDelta
   }
 
 }

@@ -28,15 +28,17 @@ class SmallExplosion extends MovingObject {
 
     }
 
-    update() {
+    update(delta) {
         // if (this.health < (BLASTTIME * (1/5)) ) this.sx + this.sWidth
         if (this.health < (BLASTTIME * (4/5)) ) this.sx = this.sWidth
         if (this.health < (BLASTTIME * (3/5)) ) this.sx = this.sWidth * 2
         if (this.health < (BLASTTIME * (2/5)) ) this.sx = this.sWidth * 3
         if (this.health < (BLASTTIME * (1/5)) ) this.sx = this.sWidth * 4
 
-        
         this.health--
+        
+        // var healthDelta = delta * 0.15
+        // this.health -= healthDelta
 
         if (this.health <= 0) this.remove()
       }

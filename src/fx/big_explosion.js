@@ -31,7 +31,10 @@ class BigExplosion extends MovingObject {
 
     }
 
-    update() {
+    update(delta) {
+        // var healthDelta = Math.floor(delta * 0.15)
+        // console.log(healthDelta)
+        // this.health -= healthDelta
         this.health--
         if (this.health % 2 === 0) this.sx += this.sWidth;
         if (this.health % 20 === 0) {
