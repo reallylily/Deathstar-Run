@@ -4,7 +4,9 @@
 }
 
 body {
-    background: #747171;
+    /* background: #747171; */
+    background: black;
+
     color: white;
     overflow-x: hidden;
 }
@@ -255,4 +257,16 @@ aside header {
     vertical-align: middle;
     margin-right: 3px;
     margin-left: 2px;
+}
+
+.blue {
+    color: blue;
+}
+
+.lightblue {
+    color: lightblue;
+}
+
+.red {
+    color: red;
 }
