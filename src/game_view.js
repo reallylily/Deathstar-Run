@@ -42,7 +42,9 @@ class GameView {
 
   playMoive() {
     const element = document.createElement('div');
-    element.innerHTML = _.join([`<iframe src="https://www.youtube.com/embed/2WBG2rJZGW8?start=801&end=831&autoplay=1&modestbranding=1&rel=0&color=white&controls=0" width="1120" height="630" frameborder="0"></iframe>`])
+    element.innerHTML = _.join(
+      [`<iframe src="https://www.youtube.com/embed/2WBG2rJZGW8?start=801&end=831&autoplay=1&modestbranding=1&rel=0&color=white&controls=0" width="560" height="315" frameborder="0"></iframe>`]
+      )
     return element;
   }
 
