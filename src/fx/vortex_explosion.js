@@ -33,10 +33,13 @@ class VortexExplosion extends MovingObject {
     }
 
     update(delta) {
-        this.health--
+        // this.health--
 
-        // var healthDelta = delta * 0.15
-        // this.health -= healthDelta
+        var healthDelta = Math.floor(delta * 0.15)
+        if (healthDelta === 0) healthDelta = 1
+        // console.log(healthDelta)
+        this.health -= healthDelta 
+
         if (this.health % 2 === 0) this.sx += this.sWidth;
         if (this.health % 20 === 0) {
             this.sy += this.sHeight;

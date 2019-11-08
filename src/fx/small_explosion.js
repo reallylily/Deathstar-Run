@@ -35,10 +35,12 @@ class SmallExplosion extends MovingObject {
         if (this.health < (BLASTTIME * (2/5)) ) this.sx = this.sWidth * 3
         if (this.health < (BLASTTIME * (1/5)) ) this.sx = this.sWidth * 4
 
-        this.health--
+        // this.health--
         
-        // var healthDelta = delta * 0.15
-        // this.health -= healthDelta
+        var healthDelta = Math.floor(delta * 0.15)
+        if (healthDelta === 0) healthDelta = 1
+        // console.log(healthDelta)
+        this.health -= healthDelta
 
         if (this.health <= 0) this.remove()
       }
