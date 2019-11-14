@@ -214,6 +214,10 @@ class Game {
     this.explosions.forEach(boom => boom.update(delta))
     this.bullets.forEach(bullet => { if (bullet instanceof PhotonTorpedo) bullet.update(delta) })
     
+    this.background[0].update(delta)
+    // this.exhaust_port[0].update(delta)
+    this.exhaust_port.forEach(port => port.update(delta))
+
 
     if (this.kill_count >= KILLS_TO_WIN && this.exhaust_port.length === 0) this.addExhaustPort()
 

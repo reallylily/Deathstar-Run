@@ -29,7 +29,7 @@ class ExhaustPort extends MovingObject {
     // options.health = DEFAULTS.HEALTH;
     super(options);
     this.bounces = true;
-    this.vel = [0,12]
+    // this.vel = [0,0]
     // this.health = DEFAULTS.HEALTH;
     // this.color = '#00FF00'
     // this.overheated = Math.floor(Math.random() * 100)
@@ -44,6 +44,8 @@ class ExhaustPort extends MovingObject {
       //   this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
       // );
       // ctx.fill();
+      // console.log(this.pos)
+
     let shipImage = new Image();
     shipImage.src = "../src/sprites/spritesheets/exhaust-only.png";
     ctx.drawImage(shipImage,this.pos[0]-250 ,this.pos[1]-115 , 550, 128 *2);
@@ -71,7 +73,12 @@ class ExhaustPort extends MovingObject {
     return false;
   }
 
-  update() {
+  update(delta) {
+    // console.log(this.pos)
+    var scrollDelta = Math.floor(delta * 0.8)
+    if (scrollDelta === 0) scrollDelta = 1
+    this.pos[1] += scrollDelta
+
     // if (this.overheated <= 0) (this.fireBullet() );
     // this.overheated--
   }

@@ -16,14 +16,19 @@ class Background {
     }
 
     draw(ctx) {
-
-        this.dy +=5
         if (this.dy >= 0) this.dy -= 3786*2
         ctx.drawImage(this.background, 
             this.sx, this.sy, this.sWidth,this.sHeight,
             this.dx,this.dy, this.dWidth, this.dHeight);
     
     } // draw
+
+    update(delta) {
+        var scrollDelta = Math.floor(delta * 0.8)
+        if (scrollDelta === 0) scrollDelta = 1
+        // console.log(scrollDelta)
+        this.dy += scrollDelta
+    }
 
 } // class
 
