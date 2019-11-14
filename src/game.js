@@ -17,8 +17,8 @@ const Background = require('./fx/background')
 
 const Util = require("./util");
 
-// const KILLS_TO_WIN = 100
-const KILLS_TO_WIN = 1
+const KILLS_TO_WIN = 100
+// const KILLS_TO_WIN = 1
 
 
 class Game {
