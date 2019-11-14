@@ -166,9 +166,11 @@ class Game {
     } else if (object instanceof PhotonTorpedo) {
       this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof Tie) {
-
-      if (this.enemies.indexOf(object) === 0) this.addEnemies()
-      if (this.enemies.indexOf(object) === 1) this.addEnemies()
+      var spawnIdx = [0,1,2]
+      if (spawnIdx.includes(this.enemies.indexOf(object))) this.addEnemies()
+      // if (this.enemies.indexOf(object) === 1) this.addEnemies()
+      // if (this.enemies.indexOf(object) === 2) this.addEnemies()
+      // if (this.enemies.indexOf(object) === 5) this.addEnemies()
       
       this.enemies.splice(this.enemies.indexOf(object), 1);
       this.kill_count += 1;
