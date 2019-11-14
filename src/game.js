@@ -17,7 +17,9 @@ const Background = require('./fx/background')
 
 const Util = require("./util");
 
-const KILLS_TO_WIN = 100
+// const KILLS_TO_WIN = 100
+const KILLS_TO_WIN = 1
+
 
 class Game {
   constructor() {
@@ -32,6 +34,7 @@ class Game {
     this.addBackground();
 
     this.kill_count = 0
+    this.spawnIdx = [0,1,2]
 
     // this.game_won = true;
     this.game_won = false;
@@ -54,7 +57,7 @@ class Game {
     } else if (object instanceof Background) {
       this.background.push(object);
     } else if (object instanceof SmallExplosion) {
-        this.explosions.push(object);
+      this.explosions.push(object);
     } else if (object instanceof BigExplosion) {
       this.explosions.push(object);
     } else if (object instanceof VerticalExplosion) {
@@ -166,11 +169,8 @@ class Game {
     } else if (object instanceof PhotonTorpedo) {
       this.bullets.splice(this.bullets.indexOf(object), 1);
     } else if (object instanceof Tie) {
-      var spawnIdx = [0,1,2]
-      if (spawnIdx.includes(this.enemies.indexOf(object))) this.addEnemies()
-      // if (this.enemies.indexOf(object) === 1) this.addEnemies()
-      // if (this.enemies.indexOf(object) === 2) this.addEnemies()
-      // if (this.enemies.indexOf(object) === 5) this.addEnemies()
+ 
+      if (this.spawnIdx.includes(this.enemies.indexOf(object))) this.addEnemies()
       
       this.enemies.splice(this.enemies.indexOf(object), 1);
       this.kill_count += 1;
@@ -217,10 +217,8 @@ class Game {
     this.bullets.forEach(bullet => { if (bullet instanceof PhotonTorpedo) bullet.update(delta) })
     
     this.background[0].update(delta)
-    // this.exhaust_port[0].update(delta)
     this.exhaust_port.forEach(port => port.update(delta))
-
-
+    // console.log(this.kill_count >= KILLS_TO_WIN, this.exhaust_port)
     if (this.kill_count >= KILLS_TO_WIN && this.exhaust_port.length === 0) this.addExhaustPort()
 
   }

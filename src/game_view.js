@@ -33,10 +33,12 @@ class GameView {
 
     if (this.game.game_won) {
       this.stop()
-      document.body.appendChild(this.playMoive());
       let parent = document.getElementById("canvas-container");
       let child = document.getElementById('canvas');
+      // document.body.appendChild(this.playMoive());
+      
       parent.removeChild(child)
+      parent.appendChild(this.playMoive());
     }
   }
 
