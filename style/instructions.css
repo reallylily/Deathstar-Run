@@ -32,7 +32,7 @@ main {
 
 #canvas-container {
     position: relative;
-    background: #94746e;
+    /* background: #94746e; */
     width: 630px;
     height: 765px;
     border: 2px solid #516c5a;
