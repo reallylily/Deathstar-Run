@@ -220,7 +220,7 @@ class Game {
     this.exhaust_port.forEach(port => port.update(delta))
     // console.log(this.kill_count >= KILLS_TO_WIN, this.exhaust_port)
     if (this.kill_count >= KILLS_TO_WIN && this.exhaust_port.length === 0) this.addExhaustPort()
-
+    // console.log(this)
   }
 
 

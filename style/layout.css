@@ -1,10 +1,10 @@
 @import 'reset.css';
 @import 'instructions.css';
 
-/* .canvas-container {
-    display: flex;
+.canvas-container {
+    /* display: flex; */
     /* flex-direction: row; */
-    justify-content: center;
+    /* justify-content: center; */
 } */
 
 .bod {
