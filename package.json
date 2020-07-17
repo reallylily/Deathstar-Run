@@ -15,7 +15,7 @@
     "@babel/preset-env": "^7.5.5",
     "babel": "^6.23.0",
     "babel-loader": "^8.0.6",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.19",
     "webpack": "^4.36.1",
     "webpack-cli": "^3.3.6"
   }
